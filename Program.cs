@@ -8,6 +8,7 @@ builder.Services.AddRazorComponents()
     .AddServerComponents();
 
 builder.Services.AddScoped<DefinitionStore>();
+builder.Services.AddScoped<MarkdownStore>();
 
 var app = builder.Build();
 

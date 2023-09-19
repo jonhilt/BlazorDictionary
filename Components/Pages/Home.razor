@@ -1,22 +1,31 @@
 ﻿@page "/"
 @using BlazorDictionary.Data
 @inject DefinitionStore Store
+@attribute [StreamRendering(true)]
 
 <PageTitle>Blazor Dictionary</PageTitle>
 
-<form method="post" @formname="Search" class="d-flex mb-4 gap-2">
-    <input type="text" name="searchTerm" value="@SearchTerm" 
-           class="form-control"/>
-    <button class="btn btn-primary">Search</button>
-    <AntiforgeryToken/>
-</form>
+@if (definitions == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <form method="post" @formname="Search" class="d-flex mb-4 gap-2">
+        <input type="text" name="searchTerm" value="@SearchTerm" 
+               class="form-control"/>
+        <button class="btn btn-primary">Search</button>
+        <AntiforgeryToken/>
+    </form>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var definition in definitions)
-    {
-        <Definition Name="@definition.Name" Summary="@definition.Summary"/>
-    }
-</div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var definition in definitions)
+        {
+            <Definition Name="@definition.Name" Summary="@definition.Summary"/>
+        }
+    </div>
+}
+
 
 @code {
 
@@ -25,7 +34,7 @@
     
     private IEnumerable<DefinitionItem> definitions;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         definitions = Store.Definitions(SearchTerm);
     }
