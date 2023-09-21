@@ -6,10 +6,10 @@ public class DefinitionStore(MarkdownStore markdownStore)
     {
         if (string.IsNullOrEmpty(searchTerm))
         {
-            return markdownStore.GetDefinitions();
+            return markdownStore.ListDefinitions();
         }
 
-        return markdownStore.GetDefinitions().Where(x =>
+        return markdownStore.ListDefinitions().Where(x =>
             x.Name.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase)
             || x.Summary.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
     }

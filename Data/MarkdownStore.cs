@@ -6,7 +6,7 @@ namespace BlazorDictionary.Data;
 
 public class MarkdownStore(IHostEnvironment env)
 {
-    public IEnumerable<DefinitionItem> GetDefinitions()
+    public IEnumerable<DefinitionItem> ListDefinitions()
     {
         var directoryPath = Path.Combine(env.ContentRootPath, "Definitions");
         if (!Directory.Exists(directoryPath))
